@@ -1,0 +1,79 @@
+package com.hams.hamsvc.entity;
+
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "doctors")
+public class Doctor {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "doctor_id")
+    private int doctorId;
+
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "experience_years")
+    private double experienceYears;
+
+    @ManyToOne
+    @JoinColumn(name = "department_id")
+    private Department department;
+
+    @ManyToOne
+    @JoinColumn(name = "specialization_id")
+    private Specialization specialization;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id")
+    private Admin admin;
+
+    public void setDoctorId(int doctorId){
+        this.doctorId=doctorId;
+    }
+    public int getDoctorId(){
+        return doctorId;
+    }
+    public void setName(String name){
+        this.name=name;
+    }
+    public String getName(){
+        return name;
+    }
+    public void setEmail(String email){
+        this.email=email;
+    }
+    public String getEmail(){
+        return email;
+    }
+    public void setExperienceYears(double experienceYears){
+        this.experienceYears=experienceYears;
+    }
+    public double getExperienceYears(){
+        return experienceYears;
+    }
+    public void setDepartment(Department department){
+        this.department=department;
+    }
+    public Department getDepartment(){
+        return department;
+    }
+   public void setSpecialization(Specialization specialization){
+        this.specialization=specialization;
+   }
+   public Specialization getSpecialization(){
+        return specialization;
+   }
+    public Admin getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Admin admin) {
+        this.admin = admin;
+    }
+
+}
