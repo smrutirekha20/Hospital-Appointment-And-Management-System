@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class PatientMapper {
 
-    public Patient mapToPatient(PatientRequest patientRequest){
-        Patient patient=new Patient();
+    public Patient mapToPatient(PatientRequest patientRequest,Patient patient){
+
         patient.setPatientName(patientRequest.getPatientName());
         patient.setEmail(patientRequest.getEmail());
         patient.setPassword(patientRequest.getPassword());
