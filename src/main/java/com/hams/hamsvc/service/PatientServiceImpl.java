@@ -2,6 +2,7 @@ package com.hams.hamsvc.service;
 
 import com.hams.hamsvc.entity.Patient;
 import com.hams.hamsvc.exception.EmailAlreadyExistsException;
+import com.hams.hamsvc.exception.PatientNotFoundException;
 import com.hams.hamsvc.mapper.PatientMapper;
 import com.hams.hamsvc.repository.PatientRepository;
 import com.hams.hamsvc.requestDTO.PatientRequest;
@@ -22,9 +23,17 @@ public class PatientServiceImpl implements PatientService{
        if(patientRepository.findByEmail(patientRequest.getEmail()).isPresent()){
            throw  new EmailAlreadyExistsException("Email alredy exist"+patientRequest.getEmail());
        }
-       Patient patient = patientMapper.mapToPatient(patientRequest);
+       Patient patient = patientMapper.mapToPatient(patientRequest,new Patient());
        Patient savedPatient = patientRepository.save(patient);
        return patientMapper.mapToPatientResponse(savedPatient);
+   }
+
+   public PatientResponse updatePatientRegisteredProfile(PatientRequest patientRequest,Integer patientId){
+            Patient exPatient = patientRepository.findById(patientId)
+                    .orElseThrow(() -> new PatientNotFoundException("Patient ID not found"));
+            patientMapper.mapToPatient(patientRequest,exPatient);
+           Patient updatedPatient = patientRepository.save(exPatient);
+           return patientMapper.mapToPatientResponse(updatedPatient);
    }
 
 }

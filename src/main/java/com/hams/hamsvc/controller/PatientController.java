@@ -8,10 +8,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 
@@ -27,5 +24,10 @@ public class PatientController {
     public ResponseEntity<ResponseStructure<PatientResponse>> registerPatient(@RequestBody PatientRequest request){
         PatientResponse patientResponse = patientService.registerPatient(request);
        return appResponseBuilder.success(HttpStatus.CREATED,"patient registered successfully",patientResponse);
+    }
+    @PutMapping("/{patientId}")
+    public ResponseEntity<ResponseStructure<PatientResponse>> updatePatientRegisteredProfile(@RequestBody PatientRequest patientRequest, @PathVariable Integer patientId){
+        PatientResponse patientResponse = patientService.updatePatientRegisteredProfile(patientRequest,patientId);
+        return appResponseBuilder.success(HttpStatus.CREATED,"Patient details updated",patientResponse);
     }
 }
