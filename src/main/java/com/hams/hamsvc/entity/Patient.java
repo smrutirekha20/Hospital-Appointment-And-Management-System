@@ -3,6 +3,8 @@ package com.hams.hamsvc.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table(name = "patients")
@@ -30,6 +32,9 @@ public class Patient {
 
     @Column(name = "age")
     private String age;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Appointment> appointments;
 
     public void setPatientId(Integer patientId){
         this.patientId=patientId;
@@ -73,6 +78,13 @@ public class Patient {
     }
     public String getAge(){
         return age;
+    }
+
+    public void setAppointments(List<Appointment> appointments){
+        this.appointments=appointments;
+    }
+    public List<Appointment> getAppointments(){
+        return appointments;
     }
 
 }
