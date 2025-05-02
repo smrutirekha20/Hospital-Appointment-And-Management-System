@@ -10,6 +10,8 @@ import com.hams.hamsvc.responseDTO.PatientResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 
 public class PatientServiceImpl implements PatientService{
@@ -31,6 +33,11 @@ public class PatientServiceImpl implements PatientService{
    public PatientResponse updatePatientRegisteredProfile(PatientRequest patientRequest,Integer patientId){
             Patient exPatient = patientRepository.findById(patientId)
                     .orElseThrow(() -> new PatientNotFoundException("Patient ID not found"));
+       Optional<Patient> patientWithSameEmail = patientRepository.findByEmail(patientRequest.getEmail());
+
+       if (patientWithSameEmail.isPresent() && !patientWithSameEmail.get().getPatientId().equals(patientId)) {
+           throw new EmailAlreadyExistsException("Email already in use: " + patientRequest.getEmail());
+       }
             patientMapper.mapToPatient(patientRequest,exPatient);
            Patient updatedPatient = patientRepository.save(exPatient);
            return patientMapper.mapToPatientResponse(updatedPatient);
