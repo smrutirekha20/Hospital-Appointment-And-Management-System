@@ -10,4 +10,5 @@ import java.util.Optional;
 @Repository
 public interface SpecializationRepository extends JpaRepository<Specialization,Integer> {
     Optional<Specialization> findBySpecializationNameAndDepartment(String specializationName, Department department);
+    Optional<Specialization> findBySpecializationName(String specializationName);
 }
