@@ -37,6 +37,9 @@ public class Doctor {
     @OneToMany(mappedBy = "doctor", fetch = FetchType.LAZY)
     private List<Appointment> appointments;
 
+    @OneToMany(mappedBy = "doctor", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Slot> slots;
+
     public void setDoctorId(int doctorId){
         this.doctorId=doctorId;
     }
@@ -86,4 +89,11 @@ public class Doctor {
  public List<Appointment> getAppointments(){
         return appointments;
  }
+    public List<Slot> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<Slot> slots) {
+        this.slots = slots;
+    }
 }

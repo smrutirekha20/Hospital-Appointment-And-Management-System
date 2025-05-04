@@ -30,30 +30,41 @@ public class Admin {
     private List<Doctor> doctors = new ArrayList<>();
 
 
-    public void setAdminId(Integer adminId){
-        this.adminId=adminId;
-    }
-    public int getAdminId(){
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Slot> slots;
+
+    public Integer getAdminId() {
         return adminId;
     }
-    public void setName(String name){
-        this.name=name;
+
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
-    public String getName(){
+
+    public String getName() {
         return name;
     }
-    public void setEmail(String email){
-        this.email=email;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getEmail(){
+
+    public String getEmail() {
         return email;
     }
-    public void setPassword(String password){
-        this.password=password;
+
+    public void setEmail(String email) {
+        this.email = email;
     }
-    public String getPassword(){
+
+    public String getPassword() {
         return password;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public List<Department> getDepartments() {
         return departments;
     }
@@ -61,11 +72,20 @@ public class Admin {
     public void setDepartments(List<Department> departments) {
         this.departments = departments;
     }
+
     public List<Doctor> getDoctors() {
         return doctors;
     }
 
     public void setDoctors(List<Doctor> doctors) {
         this.doctors = doctors;
+    }
+
+    public List<Slot> getSlots() {
+        return slots;
+    }
+
+    public void setSlots(List<Slot> slots) {
+        this.slots = slots;
     }
 }
