@@ -4,6 +4,7 @@ import com.hams.hamsvc.exception.AdminNotFoundException;
 import com.hams.hamsvc.utility.AppResponseBuilder;
 import com.hams.hamsvc.utility.ErrorStructure;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @RestControllerAdvice
 @AllArgsConstructor
 public class AdminAlreadyExistExceptionHandler {
+    @Autowired
    private AppResponseBuilder appResponseBuilder;
     @ExceptionHandler(AdminNotFoundException.class)
     public ResponseEntity<ErrorStructure<String>> handleEmailExists(AdminNotFoundException ex){
