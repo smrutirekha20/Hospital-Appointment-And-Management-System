@@ -2,21 +2,53 @@ package com.hams.hamsvc.requestDTO;
 
 import com.hams.hamsvc.enums.AppointmentStatus;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 public class AppointmentRequest {
+    private String doctorName;
+    private LocalDate slotDate;
+    private LocalTime slotTime;
     private LocalDateTime appointmentDateAndTime;
     private AppointmentStatus appointmentStatus;
 
-    public LocalDateTime getAppointmentDateTime() {
+    public String getDoctorName() {
+        return doctorName;
+    }
+
+    public void setDoctorName(String doctorName) {
+        this.doctorName = doctorName;
+    }
+
+    public LocalDate getSlotDate() {
+        return slotDate;
+    }
+
+    public void setSlotDate(LocalDate slotDate) {
+        this.slotDate = slotDate;
+    }
+
+    public LocalTime getSlotTime() {
+        return slotTime;
+    }
+
+    public void setSlotTime(LocalTime slotTime) {
+        this.slotTime = slotTime;
+    }
+
+    public LocalDateTime getAppointmentDateAndTime() {
         return appointmentDateAndTime;
     }
-    public void setAppointmentDateTime(LocalDateTime appointmentDateTime) {
-        this.appointmentDateAndTime = appointmentDateTime;
+
+    public void setAppointmentDateAndTime(LocalDateTime appointmentDateAndTime) {
+        this.appointmentDateAndTime = appointmentDateAndTime;
     }
+
     public AppointmentStatus getAppointmentStatus() {
         return appointmentStatus;
     }
+
     public void setAppointmentStatus(AppointmentStatus appointmentStatus) {
         this.appointmentStatus = appointmentStatus;
     }
