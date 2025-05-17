@@ -11,14 +11,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/admins")
+@RequestMapping("${hospital.base_url}")
 public class SpecializationController {
     @Autowired
     private AppResponseBuilder appResponseBuilder;
     @Autowired
     private SpecializationService specializationService;
 
-    @PostMapping("/{adminId}/departments/{departmentId}/specializations")
+    @PostMapping("admins/{adminId}/departments/{departmentId}/specializations")
     public ResponseEntity<ResponseStructure<SpecializationResponse>> addSpecializationToDepartment(@PathVariable Integer adminId, @PathVariable Integer departmentId,
                                                                                                    @RequestBody SpecializationRequest specializationRequest){
         SpecializationResponse specializationResponse=specializationService.addSpecializationToDepartment(adminId,departmentId, specializationRequest);

@@ -14,19 +14,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/slot")
+@RequestMapping("${hospital.base_url}")
 public class SlotController {
     @Autowired
     private AppResponseBuilder appResponseBuilder;
     @Autowired
     private SlotService slotService;
 
-    @PostMapping("/admin/{adminId}/doctor/{doctorId}")
+    @PostMapping("slots/admin/{adminId}/doctor/{doctorId}")
     public ResponseEntity<ResponseStructure<SlotResponse>> addSlot(@PathVariable Integer adminId, @PathVariable Integer doctorId, @RequestBody SlotRequest slotRequest){
         SlotResponse response = slotService.addSlot(adminId,doctorId,slotRequest);
         return appResponseBuilder.success(HttpStatus.CREATED,"Slot added",response);
     }
-    @GetMapping
+    @GetMapping("patients/slots")
     public ResponseEntity<ResponseStructure<List<SlotResponse>>> getAvailableSlot(){
         List<SlotResponse> slots =slotService.getAvailableSlots();
         return appResponseBuilder.success(HttpStatus.FOUND,"Available slot fetched successfully",slots);

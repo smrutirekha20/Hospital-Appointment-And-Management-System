@@ -20,11 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class AppointmentServiceImpl implements AppointmentService {
-    @Autowired
-    private DepartmentRepository departmentRepository;
-
-    @Autowired
-    private SpecializationRepository specializationRepository;
 
     @Autowired
     private DoctorRepository doctorRepository;
@@ -43,22 +38,7 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private SlotRepository slotRepository;
 
-    @Override
-    public List<DoctorResponse> getDoctorsByDepartmentAndSpecialization(String departmentName, String specializationName) {
 
-        Department department = departmentRepository.findByDepartmentName(departmentName)
-                .orElseThrow(() -> new DepartmentNotFoundException("Department not found"));
-
-        Specialization specialization = specializationRepository.findBySpecializationName(specializationName)
-                .orElseThrow(() -> new SpecializationNotFoundException("Specialization not found"));
-
-
-        List<Doctor> doctors = doctorRepository.findByDepartmentAndSpecialization(department, specialization);
-
-        return doctors.stream()
-                .map(doctorMapper::mapToDoctorResponse)
-                .collect(Collectors.toList());
-    }
     public AppointmentResponse bookAppointment(Integer patientId, String doctorName, AppointmentRequest appointmentRequest) {
 
         Doctor doctor = doctorRepository.findByName(doctorName)

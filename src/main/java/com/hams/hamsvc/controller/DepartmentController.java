@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/admins")
+@RequestMapping("${hospital.base_url}")
 public class DepartmentController {
 
         @Autowired
@@ -23,7 +23,7 @@ public class DepartmentController {
         @Autowired
         private AppResponseBuilder appResponseBuilder;
 
-        @PostMapping("{adminId}/departments")
+        @PostMapping("/admins/{adminId}/departments")
         public ResponseEntity<ResponseStructure<DepartmentResponse>> createDepartment(@PathVariable Integer adminId,
                                                                                       @RequestBody DepartmentRequest departmentRequest) {
             DepartmentResponse departmentResponse = departmentService.createDepartment(adminId, departmentRequest);

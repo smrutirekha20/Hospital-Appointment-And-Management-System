@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 
-@RequestMapping("/patients")
+@RequestMapping("${hospital.base_url}")
 public class PatientController {
 
     @Autowired
@@ -20,12 +20,12 @@ public class PatientController {
     @Autowired
     private  AppResponseBuilder appResponseBuilder;
 
-    @PostMapping("/register")
+    @PostMapping("/patients")
     public ResponseEntity<ResponseStructure<PatientResponse>> registerPatient(@RequestBody PatientRequest request){
         PatientResponse patientResponse = patientService.registerPatient(request);
        return appResponseBuilder.success(HttpStatus.CREATED,"patient registered successfully",patientResponse);
     }
-    @PutMapping("/{patientId}")
+    @PutMapping("patients/{patientId}")
     public ResponseEntity<ResponseStructure<PatientResponse>> updatePatientRegisteredProfile(@RequestBody PatientRequest patientRequest, @PathVariable Integer patientId){
         PatientResponse patientResponse = patientService.updatePatientRegisteredProfile(patientRequest,patientId);
         return appResponseBuilder.success(HttpStatus.CREATED,"Patient details updated",patientResponse);

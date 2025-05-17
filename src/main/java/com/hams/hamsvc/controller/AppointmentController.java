@@ -14,18 +14,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/appointments")
+@RequestMapping("${hospital.base_url}")
 public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
     @Autowired
     private AppResponseBuilder appResponseBuilder;
 
-    @GetMapping("/search/doctors/{departmentName}/{specializationName}")
-    public ResponseEntity<ResponseStructure<List<DoctorResponse>>> searchDoctors (@PathVariable String departmentName, @PathVariable String specializationName) {
-       List<DoctorResponse> doctors = appointmentService.getDoctorsByDepartmentAndSpecialization(departmentName,specializationName);
-       return appResponseBuilder.success(HttpStatus.OK,"Doctors found", doctors);
-    }
+
     @PostMapping("/patients/{patientId}/doctors/{doctorName}")
     public ResponseEntity<ResponseStructure<AppointmentResponse>> bookAppointments(@PathVariable Integer patientId, @PathVariable String doctorName, @RequestBody AppointmentRequest appointmentRequest){
         AppointmentResponse appointmentResponse = appointmentService.bookAppointment(patientId,doctorName,appointmentRequest);

@@ -17,6 +17,9 @@ import com.hams.hamsvc.responseDTO.DoctorResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DoctorServiceImpl implements DoctorService {
 
@@ -38,14 +41,14 @@ public class DoctorServiceImpl implements DoctorService {
     public DoctorResponse createDoctorProfile(DoctorRequest doctorRequest, int adminId, int departmentId, int specializationId) {
 
         Admin admin = adminRepository.findById(adminId)
-                     .orElseThrow(() -> new AdminNotFoundException("Admin not found"));
+                .orElseThrow(() -> new AdminNotFoundException("Admin not found"));
 
         Department department = departmentRepository.findById(departmentId)
-                     .orElseThrow(() -> new DepartmentNotFoundException("Department not found"));
+                .orElseThrow(() -> new DepartmentNotFoundException("Department not found"));
 
 
         Specialization specialization = specializationRepository.findById(specializationId)
-                     .orElseThrow(() -> new SpecializationNotFoundException("Specialization not found"));
+                .orElseThrow(() -> new SpecializationNotFoundException("Specialization not found"));
 
         Doctor doctor = doctorMapper.mapToDoctor(doctorRequest);
 
@@ -60,6 +63,24 @@ public class DoctorServiceImpl implements DoctorService {
 
         return doctorMapper.mapToDoctorResponse(savedDoctor);
     }
+
+    @Override
+    public List<DoctorResponse> getDoctorsByDepartmentAndSpecialization(String departmentName, String specializationName) {
+
+        Department department = departmentRepository.findByDepartmentName(departmentName)
+                .orElseThrow(() -> new DepartmentNotFoundException("Department not found"));
+
+        Specialization specialization = specializationRepository.findBySpecializationName(specializationName)
+                .orElseThrow(() -> new SpecializationNotFoundException("Specialization not found"));
+
+
+        List<Doctor> doctors = doctorRepository.findByDepartmentAndSpecialization(department, specialization);
+
+        return doctors.stream()
+                .map(doctorMapper::mapToDoctorResponse)
+                .collect(Collectors.toList());
+    }
+    
 }
 
 

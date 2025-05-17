@@ -7,8 +7,7 @@ import com.hams.hamsvc.responseDTO.DoctorResponse;
 import java.util.List;
 
 public interface AppointmentService {
-        List<DoctorResponse> getDoctorsByDepartmentAndSpecialization(String departmentName, String specializationName);
-        AppointmentResponse bookAppointment(Integer patientId, String doctorName, AppointmentRequest appointmentRequest);
+    AppointmentResponse bookAppointment(Integer patientId, String doctorName, AppointmentRequest appointmentRequest);
     }
 
 
