@@ -23,8 +23,8 @@ public class AdminController {
     private AppResponseBuilder appResponseBuilder;
 
     @PostMapping("/admin")
-    public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@RequestBody @Valid AdminRequest request) {
-        AdminResponse response = adminService.createAdmin(request);
+    public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@PathVariable Integer userId,@RequestBody @Valid AdminRequest request) {
+        AdminResponse response = adminService.createAdmin(userId,request);
         return appResponseBuilder.success(HttpStatus.CREATED, "Admin created successfully", response);
     }
 //    @GetMapping("/csrf-token")

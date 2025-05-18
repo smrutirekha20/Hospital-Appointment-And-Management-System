@@ -20,9 +20,6 @@ public class Admin {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "password")
-    private String password;
-
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Department> departments = new ArrayList<>();
 
@@ -69,13 +66,7 @@ public class Admin {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public List<Department> getDepartments() {
         return departments;

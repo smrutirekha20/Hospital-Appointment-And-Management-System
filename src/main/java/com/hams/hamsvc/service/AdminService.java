@@ -4,7 +4,7 @@ import com.hams.hamsvc.requestDTO.AdminRequest;
 import com.hams.hamsvc.responseDTO.AdminResponse;
 
 public interface AdminService {
-    AdminResponse createAdmin(AdminRequest request);
+    AdminResponse createAdmin(Integer userId,AdminRequest request);
 }
 
 

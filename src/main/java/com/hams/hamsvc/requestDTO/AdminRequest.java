@@ -16,8 +16,6 @@ public class AdminRequest {
     @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@gmail\\.com$", message = "email must be end with @gmail.com")
     private String email;
 
-    @NotBlank(message = "password is required and it should be strong password")
-    private String password;
 
     public void setName(String name){
         this.name=name;
@@ -30,11 +28,5 @@ public class AdminRequest {
     }
     public String getEmail(){
         return email;
-    }
-    public void setPassword(String password){
-        this.password=password;
-    }
-    public String getPassword(){
-        return password;
     }
 }
