@@ -28,12 +28,12 @@ public class SecurityConfig {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/register", "/login").permitAll()  // allow registration & login without auth
-                        .anyRequest().authenticated()                            // all other endpoints need authentication
+                        .requestMatchers("/api/register", "/api/login","/api/admin/**").permitAll()
+                        .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED))
                 .authenticationProvider(authenticationProvider())
-                //.formLogin(Customizer.withDefaults()) // enables default /login POST handler
+                .formLogin(form -> form.disable())
                 .httpBasic(Customizer.withDefaults())
                 .build();
     }

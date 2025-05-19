@@ -7,11 +7,6 @@ import jakarta.validation.constraints.Size;
 
 public class UserRequest {
 
-
-    @NotNull
-    @NotBlank(message = "user name is required")
-    private String userName;
-
     @NotNull
     @NotBlank(message = "please enter email in proper format")
     private String email;
@@ -23,14 +18,6 @@ public class UserRequest {
 
     @NotNull
     private UserRole userRole;
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
 
     public String getPassword() {
         return password;

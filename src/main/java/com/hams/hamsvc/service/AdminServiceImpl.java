@@ -32,20 +32,17 @@ public class AdminServiceImpl implements AdminService {
     public AdminResponse createAdmin(Integer userId,AdminRequest adminRequest) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
-
-        // Check if role is correct
         if (user.getUserRole() != UserRole.ADMIN) {
             throw new IllegalArgumentException("User is not assigned role ADMIN");
         }
 
-        // Create Admin entity
         Admin admin = new Admin();
         admin.setUser(user);
         admin.setName(adminRequest.getName());
-        admin.setEmail(adminRequest.getEmail()); // Optional if different from user.email
+        admin.setEmail(adminRequest.getEmail());
 
-        // Save Admin
         Admin savedAdmin = adminRepository.save(admin);
+        System.out.println("Saved admin ID: " + savedAdmin.getAdminId());
 
         return adminMapper.toAdminResponse(savedAdmin);
     }

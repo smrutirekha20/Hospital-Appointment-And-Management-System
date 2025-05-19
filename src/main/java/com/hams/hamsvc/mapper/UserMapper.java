@@ -10,7 +10,6 @@ public class UserMapper {
 
     public User mapToUser(UserRequest userRequest) {
         User user = new User();
-        user.setUserName(userRequest.getUserName());
         user.setPassword(userRequest.getPassword());
         user.setEmail(userRequest.getEmail());
         user.setUserRole(userRequest.getUserRole());
@@ -20,7 +19,6 @@ public class UserMapper {
     public UserResponse mapToUserResponse(User user) {
         UserResponse userResponse = new UserResponse();
         userResponse.setUserId(user.getUserId());
-        userResponse.setUserName(user.getUserName());
         userResponse.setEmail(user.getEmail());
         userResponse.setUserRole(user.getUserRole());
 

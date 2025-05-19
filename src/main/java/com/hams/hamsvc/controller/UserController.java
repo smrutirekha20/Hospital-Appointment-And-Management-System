@@ -1,5 +1,6 @@
 package com.hams.hamsvc.controller;
 
+import com.hams.hamsvc.requestDTO.LoginRequest;
 import com.hams.hamsvc.requestDTO.UserRequest;
 import com.hams.hamsvc.responseDTO.UserResponse;
 import com.hams.hamsvc.service.UserService;
@@ -7,6 +8,7 @@ import com.hams.hamsvc.utility.AppResponseBuilder;
 import com.hams.hamsvc.utility.ResponseStructure;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,5 +31,13 @@ public class UserController {
                                                                            userRequest) {
         UserResponse userResponse = userService.saveUser(userRequest);
         return appResponseBuilder.success(HttpStatus.CREATED, "User created", userResponse);
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<ResponseStructure<UserResponse>> login(@RequestBody @Valid LoginRequest loginRequest) {
+        UserResponse userResponse = userService.login(loginRequest);
+
+
+        return appResponseBuilder.success(HttpStatus.OK, "logged in",userResponse );
     }
 }

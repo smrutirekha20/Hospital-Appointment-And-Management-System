@@ -4,7 +4,6 @@ import com.hams.hamsvc.enums.UserRole;
 
 public class UserResponse {
     private Integer userId;
-    private String userName;
     private String email;
     private UserRole userRole;
 
@@ -14,14 +13,6 @@ public class UserResponse {
 
     public void setUserId(Integer userId) {
         this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getEmail() {
