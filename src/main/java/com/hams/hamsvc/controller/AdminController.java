@@ -14,6 +14,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+
 @RestController
 @RequestMapping("${hospital.base_url}")
 public class AdminController {
@@ -23,10 +25,10 @@ public class AdminController {
     @Autowired
     private AppResponseBuilder appResponseBuilder;
 
-    @PostMapping("/admin/{userId}/user")
+    @PostMapping("/admin")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(@PathVariable Integer userId,@RequestBody @Valid AdminRequest request) {
-        AdminResponse response = adminService.createAdmin(userId,request);
+    public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(Principal principal, @RequestBody @Valid AdminRequest request) {
+        AdminResponse response = adminService.createAdmin(principal,request);
         return appResponseBuilder.success(HttpStatus.CREATED, "Admin created successfully", response);
     }
 //    @GetMapping("/csrf-token")

@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
+
 @Service
 public class AdminServiceImpl implements AdminService {
 
@@ -29,9 +31,10 @@ public class AdminServiceImpl implements AdminService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public AdminResponse createAdmin(Integer userId,AdminRequest adminRequest) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with ID: " + userId));
+    public AdminResponse createAdmin(Principal principal, AdminRequest adminRequest) {
+        String email=principal.getName();
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
         if (user.getUserRole() != UserRole.ADMIN) {
             throw new IllegalArgumentException("User is not assigned role ADMIN");
         }
