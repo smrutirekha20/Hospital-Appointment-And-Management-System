@@ -11,7 +11,7 @@ public class DoctorMapper {
         public Doctor mapToDoctor(DoctorRequest doctorRequest) {
             Doctor doctor = new Doctor();
             doctor.setName(doctorRequest.getName());
-            doctor.setEmail(doctorRequest.getEmail());
+           // doctor.setEmail(doctorRequest.getEmail());
             doctor.setExperienceYears(doctorRequest.getExperienceYears());
             return doctor;
         }
@@ -20,7 +20,7 @@ public class DoctorMapper {
             DoctorResponse doctorResponse = new DoctorResponse();
             doctorResponse.setDoctorId(doctor.getDoctorId());
             doctorResponse.setName(doctor.getName());
-            doctorResponse.setEmail(doctor.getEmail());
+            doctorResponse.setEmail(doctor.getUser().getEmail());
             doctorResponse.setExperienceYears(doctor.getExperienceYears());
             return doctorResponse;
         }

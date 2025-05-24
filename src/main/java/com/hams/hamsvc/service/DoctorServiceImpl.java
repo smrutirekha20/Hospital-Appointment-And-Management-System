@@ -1,9 +1,6 @@
 package com.hams.hamsvc.service;
 
-import com.hams.hamsvc.entity.Admin;
-import com.hams.hamsvc.entity.Department;
-import com.hams.hamsvc.entity.Doctor;
-import com.hams.hamsvc.entity.Specialization;
+import com.hams.hamsvc.entity.*;
 import com.hams.hamsvc.exception.AdminNotFoundException;
 import com.hams.hamsvc.exception.DepartmentNotFoundException;
 import com.hams.hamsvc.exception.SpecializationNotFoundException;
@@ -14,6 +11,7 @@ import com.hams.hamsvc.repository.DoctorRepository;
 import com.hams.hamsvc.repository.SpecializationRepository;
 import com.hams.hamsvc.requestDTO.DoctorRequest;
 import com.hams.hamsvc.responseDTO.DoctorResponse;
+import com.hams.hamsvc.security.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,9 +36,11 @@ public class DoctorServiceImpl implements DoctorService {
     @Autowired
     private AdminRepository adminRepository;
 
-    public DoctorResponse createDoctorProfile(DoctorRequest doctorRequest, int adminId, int departmentId, int specializationId) {
+    private AuthUtil authUtil;
 
-        Admin admin = adminRepository.findById(adminId)
+    public DoctorResponse createDoctorProfile(DoctorRequest doctorRequest, int adminId, int departmentId, int specializationId) {
+         User loggedInUser = authUtil.getCurrentUser();
+        Admin admin = adminRepository.findByUser_userId(loggedInUser.getUserId())
                 .orElseThrow(() -> new AdminNotFoundException("Admin not found"));
 
         Department department = departmentRepository.findById(departmentId)
@@ -80,7 +80,7 @@ public class DoctorServiceImpl implements DoctorService {
                 .map(doctorMapper::mapToDoctorResponse)
                 .collect(Collectors.toList());
     }
-    
+
 }
 
 

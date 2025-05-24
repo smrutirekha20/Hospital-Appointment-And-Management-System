@@ -10,7 +10,6 @@ public class AdminMapper {
     public Admin toadmin(AdminRequest request) {
         Admin admin = new Admin();
         admin.setName(request.getName());
-        admin.setEmail(request.getEmail());
         return admin;
     }
 
@@ -18,7 +17,7 @@ public class AdminMapper {
         AdminResponse response = new AdminResponse();
         response.setAdminId(admin.getAdminId());
         response.setName(admin.getName());
-        response.setEmail(admin.getEmail());
+        response.setEmail(admin.getUser().getEmail());
         return response;
     }
 }

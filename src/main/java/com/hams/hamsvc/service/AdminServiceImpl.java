@@ -9,7 +9,9 @@ import com.hams.hamsvc.repository.AdminRepository;
 import com.hams.hamsvc.repository.UserRepository;
 import com.hams.hamsvc.requestDTO.AdminRequest;
 import com.hams.hamsvc.responseDTO.AdminResponse;
+import com.hams.hamsvc.security.AuthUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -28,26 +30,28 @@ public class AdminServiceImpl implements AdminService {
     private UserRepository userRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    private AuthUtil authUtil;
 
     @Override
-    public AdminResponse createAdmin(Principal principal, AdminRequest adminRequest) {
-        String email=principal.getName();
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+    public AdminResponse createAdmin(AdminRequest adminRequest) {
+        User user = authUtil.getCurrentUser();
+
         if (user.getUserRole() != UserRole.ADMIN) {
             throw new IllegalArgumentException("User is not assigned role ADMIN");
         }
 
-        Admin admin = new Admin();
-        admin.setUser(user);
-        admin.setName(adminRequest.getName());
-        admin.setEmail(adminRequest.getEmail());
+        Admin admin = adminRepository.findByUser(user)
+                .orElseGet(() -> {
+                    Admin newAdmin = new Admin();
+                    newAdmin.setName(adminRequest.getName());
+                    newAdmin.setUser(user);
+                    // set fields
+                    return adminRepository.save(newAdmin);
+                });
 
-        Admin savedAdmin = adminRepository.save(admin);
-        System.out.println("Saved admin ID: " + savedAdmin.getAdminId());
+        System.out.println("Saved admin ID: " + admin.getAdminId());
 
-        return adminMapper.toAdminResponse(savedAdmin);
+        return adminMapper.toAdminResponse(admin);
     }
 }
 

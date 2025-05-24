@@ -8,6 +8,7 @@ import com.hams.hamsvc.utility.ResponseStructure;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -18,7 +19,8 @@ public class SpecializationController {
     @Autowired
     private SpecializationService specializationService;
 
-    @PostMapping("admins/{adminId}/departments/{departmentId}/specializations")
+    @PostMapping("admin/{adminId}/departments/{departmentId}/specializations")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<ResponseStructure<SpecializationResponse>> addSpecializationToDepartment(@PathVariable Integer adminId, @PathVariable Integer departmentId,
                                                                                                    @RequestBody SpecializationRequest specializationRequest){
         SpecializationResponse specializationResponse=specializationService.addSpecializationToDepartment(adminId,departmentId, specializationRequest);

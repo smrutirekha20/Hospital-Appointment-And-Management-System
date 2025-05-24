@@ -16,8 +16,6 @@ public class Doctor {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "experience_years")
     private double experienceYears;
@@ -63,12 +61,6 @@ public class Doctor {
     }
     public String getName(){
         return name;
-    }
-    public void setEmail(String email){
-        this.email=email;
-    }
-    public String getEmail(){
-        return email;
     }
     public void setExperienceYears(double experienceYears){
         this.experienceYears=experienceYears;

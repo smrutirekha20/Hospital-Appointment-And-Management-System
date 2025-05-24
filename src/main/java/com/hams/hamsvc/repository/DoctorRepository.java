@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository
 public interface DoctorRepository extends JpaRepository<Doctor,Integer> {
 
-    boolean existsByEmail(String email);
+   // boolean existsByEmail(String email);
     List<Doctor> findByDepartmentAndSpecialization(Department department, Specialization specialization);
     Optional<Doctor> findByName(String name);
 }

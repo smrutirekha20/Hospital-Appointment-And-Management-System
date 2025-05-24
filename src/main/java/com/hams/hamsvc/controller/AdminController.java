@@ -26,10 +26,17 @@ public class AdminController {
     private AppResponseBuilder appResponseBuilder;
 
     @PostMapping("/admin")
-    @PreAuthorize("hasAuthority('ADMIN')")
-    public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin(Principal principal, @RequestBody @Valid AdminRequest request) {
-        AdminResponse response = adminService.createAdmin(principal,request);
+    @PreAuthorize("hasRole('ADMIN')")
+  //  @PreAuthorize("hasAuthority('ADMIN')")
+    public ResponseEntity<ResponseStructure<AdminResponse>> createAdmin( @RequestBody @Valid AdminRequest request) {
+        System.out.println("i am here");
+        AdminResponse response = adminService.createAdmin(request);
         return appResponseBuilder.success(HttpStatus.CREATED, "Admin created successfully", response);
+    }
+    @GetMapping("/admin/test")
+    @PreAuthorize("hasRole('ADMIN')")
+    public String testAdminAccess() {
+        return "Admin access granted";
     }
 //    @GetMapping("/csrf-token")
 //    public CsrfToken getCsrfToken(HttpServletRequest request){

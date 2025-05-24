@@ -7,7 +7,7 @@ import com.hams.hamsvc.responseDTO.SpecializationResponse;
 
 public interface DepartmentService {
 
-        DepartmentResponse createDepartment(Integer adminId, DepartmentRequest departmentRequest);
+        DepartmentResponse createDepartment( DepartmentRequest departmentRequest);
 
     }
 

@@ -6,7 +6,7 @@ import com.hams.hamsvc.responseDTO.AdminResponse;
 import java.security.Principal;
 
 public interface AdminService {
-    AdminResponse createAdmin(Principal principal, AdminRequest request);
+    AdminResponse createAdmin( AdminRequest request);
 }
 
 

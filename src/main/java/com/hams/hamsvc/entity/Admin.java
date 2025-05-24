@@ -17,9 +17,6 @@ public class Admin {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "email")
-    private String email;
-
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
     private List<Department> departments = new ArrayList<>();
 
@@ -33,14 +30,6 @@ public class Admin {
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     public Integer getAdminId() {
         return adminId;
@@ -57,16 +46,6 @@ public class Admin {
     public void setName(String name) {
         this.name = name;
     }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-
 
     public List<Department> getDepartments() {
         return departments;
@@ -90,5 +69,13 @@ public class Admin {
 
     public void setSlots(List<Slot> slots) {
         this.slots = slots;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

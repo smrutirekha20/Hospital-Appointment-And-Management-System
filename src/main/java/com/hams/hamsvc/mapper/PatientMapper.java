@@ -11,8 +11,8 @@ public class PatientMapper {
     public Patient mapToPatient(PatientRequest patientRequest,Patient patient){
 
         patient.setPatientName(patientRequest.getPatientName());
-        patient.setEmail(patientRequest.getEmail());
-        patient.setPassword(patientRequest.getPassword());
+//        patient.setEmail(patientRequest.getEmail());
+//        patient.setPassword(patientRequest.getPassword());
         patient.setPhoneNumber(patientRequest.getPhoneNumber());
         patient.setAge(patientRequest.getAge());
         patient.setGender(patientRequest.getGender());
@@ -23,7 +23,7 @@ public class PatientMapper {
         PatientResponse patientResponse=new PatientResponse();
         patientResponse.setPatientId(patient.getPatientId());
         patientResponse.setPatientName(patient.getPatientName());
-        patientResponse.setEmail(patient.getEmail());
+        patientResponse.setEmail(patient.getUser().getEmail());
         patientResponse.setPhoneNumber(patient.getPhoneNumber());
         patientResponse.setAge(patient.getAge());
         patientResponse.setGender(patient.getGender());
